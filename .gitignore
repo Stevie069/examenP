@@ -1,0 +1,21 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Docker
+.docker/
+
+# Flutter (dentro de app_notas)
+app_notas/build/
+app_notas/.dart_tool/
+app_notas/.flutter-plugins
+app_notas/.flutter-plugins-dependencies
+app_notas/.pub-cache/
+app_notas/.packages
+app_notas/android/.gradle
+app_notas/ios/.symlinks
+
+# Sistema
+.DS_Store

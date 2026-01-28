@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Predictor AI</title>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        /* Simulación de carcasa de Celular */
+        .mobile-container {
+            background-color: white;
+            width: 375px; /* Ancho típico de iPhone */
+            height: 700px;
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 8px solid #333;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Notch (Muesca de cámara) */
+        .notch {
+            background-color: #333;
+            width: 150px;
+            height: 25px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+        .app-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 20px 20px;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input {
+            width: 90%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            font-size: 16px;
+        }
+        button {
+            background-color: #764ba2;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.1s;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .result-box {
+            margin-top: 20px;
+            text-align: center;
+            padding: 20px;
+            background-color: #e3f2fd;
+            border-radius: 15px;
+            display: none; /* Oculto al inicio */
+        }
+        .score-display {
+            font-size: 3em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        <div class="notch"></div>
+        <div class="app-header">
+            <h2>🎓 Score AI</h2>
+            <p>Predicción de Examen</p>
+        </div>
+
+        <div class="content">
+            <div>
+                <label>📚 Horas de Estudio (Semanal)</label>
+                <input type="number" id="study" placeholder="Ej: 15">
+            </div>
+            
+            <div>
+                <label>📅 Asistencia a Clases (%)</label>
+                <input type="number" id="attendance" placeholder="Ej: 85">
+            </div>
+            
+            <div>
+                <label>😴 Horas de Sueño (Diario)</label>
+                <input type="number" id="sleep" placeholder="Ej: 7">
+            </div>
+
+            <button onclick="enviarDatos()">Predecir Nota</button>
+
+            <div class="result-box" id="resultBox">
+                <small>Nota Probable:</small>
+                <div class="score-display" id="scoreValue">--</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function enviarDatos() {
+            const btn = document.querySelector('button');
+            const resultBox = document.getElementById('resultBox');
+            
+            btn.innerText = "Calculando...";
+            btn.disabled = true;
+
+            const data = {
+                study: document.getElementById('study').value,
+                attendance: document.getElementById('attendance').value,
+                sleep: document.getElementById('sleep').value
+            };
+
+            try {
+                const response = await fetch('/predecir', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                const json = await response.json();
+                
+                document.getElementById('scoreValue').innerText = json.score;
+                resultBox.style.display = 'block';
+            } catch (error) {
+                alert("Error de conexión");
+            }
+
+            btn.innerText = "Predecir Nota";
+            btn.disabled = false;
+        }
+    </script>
+</body>
+</html>

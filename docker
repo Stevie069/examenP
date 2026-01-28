@@ -1,0 +1,16 @@
+CONTAINER ID   IMAGE                     COMMAND                  CREATED          STATUS                          PORTS                                         NAMES
+7dc771f8b240   postgres:13               "docker-entrypoint.s…"   39 minutes ago   Up 39 minutes                   0.0.0.0:5435->5432/tcp, [::]:5435->5432/tcp   proyecto_examen_postgres_1
+7cd6be6bb236   appestudiantes_frontend   "/docker-entrypoint.…"   3 months ago     Restarting (1) 27 seconds ago                                                 app_frontend
+76b934267ec3   postgres:15-alpine        "docker-entrypoint.s…"   3 months ago     Up 6 hours (healthy)            0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp   app_db
+psql (13.22 (Debian 13.22-1.pgdg13+1))
+Type "help" for help.
+
+[?2004hescuela_db=# ^C[?2004l
+[?2004hescuela_db=# ^C[?2004l
+[?2004hescuela_db=# ^C[?2004l
+[?2004hescuela_db=# ^C[?2004l
+[?2004hescuela_db=# ^C[?2004l
+[?2004hescuela_db=# ^C[?2004l
+[?2004hescuela_db=# ^C[?2004l
+[?2004hescuela_db=# ^C[?2004l
+[?2004hescuela_db=# 
